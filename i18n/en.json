@@ -1,0 +1,39 @@
+{
+  "prayer.Imsak": "Imsak",
+  "prayer.Fajr": "Fajr",
+  "prayer.Sunrise": "Sunrise",
+  "prayer.Dhuhr": "Dhuhr",
+  "prayer.Asr": "Asr",
+  "prayer.Maghrib": "Maghrib",
+  "prayer.Isha": "Isha",
+
+  "panel.title": "Today's Prayer Times",
+  "panel.calcMethod": "Calculation Method",
+  "panel.language": "Language",
+  "panel.coords": "Set Coordinates (Lat / Long):",
+  "panel.save": "Save & Refresh",
+  "panel.latPlaceholder": "Latitude",
+  "panel.longPlaceholder": "Longitude",
+
+  "bar.loading": "Loading...",
+  "bar.tooltip": "Prayer Time",
+
+  "notify.title": "Prayer Time",
+  "notify.altTitle": "Prayer Time Alert",
+  "notify.body": "It is time for the {name} prayer.",
+  "notify.prepare": "Please prepare for prayer.",
+
+  "hijri.ah": "AH",
+  "hijri.m01": "Muharram",
+  "hijri.m02": "Safar",
+  "hijri.m03": "Rabi' al-awwal",
+  "hijri.m04": "Rabi' al-thani",
+  "hijri.m05": "Jumada al-awwal",
+  "hijri.m06": "Jumada al-thani",
+  "hijri.m07": "Rajab",
+  "hijri.m08": "Sha'ban",
+  "hijri.m09": "Ramadan",
+  "hijri.m10": "Shawwal",
+  "hijri.m11": "Dhu al-Qi'dah",
+  "hijri.m12": "Dhu al-Hijjah"
+}

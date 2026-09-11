@@ -1,0 +1,39 @@
+{
+  "prayer.Imsak": "الإمساك",
+  "prayer.Fajr": "الفجر",
+  "prayer.Sunrise": "الشروق",
+  "prayer.Dhuhr": "الظهر",
+  "prayer.Asr": "العصر",
+  "prayer.Maghrib": "المغرب",
+  "prayer.Isha": "العشاء",
+
+  "panel.title": "أوقات الصلاة اليوم",
+  "panel.calcMethod": "طريقة الحساب",
+  "panel.language": "اللغة",
+  "panel.coords": "ضبط الإحداثيات (خط العرض / خط الطول):",
+  "panel.save": "حفظ وتحديث",
+  "panel.latPlaceholder": "خط العرض",
+  "panel.longPlaceholder": "خط الطول",
+
+  "bar.loading": "جارٍ التحميل...",
+  "bar.tooltip": "وقت الصلاة",
+
+  "notify.title": "وقت الصلاة",
+  "notify.altTitle": "تنبيه وقت الصلاة",
+  "notify.body": "حان وقت صلاة {name}.",
+  "notify.prepare": "استعدوا للصلاة.",
+
+  "hijri.ah": "هـ",
+  "hijri.m01": "محرم",
+  "hijri.m02": "صفر",
+  "hijri.m03": "ربيع الأول",
+  "hijri.m04": "ربيع الآخر",
+  "hijri.m05": "جمادى الأولى",
+  "hijri.m06": "جمادى الآخرة",
+  "hijri.m07": "رجب",
+  "hijri.m08": "شعبان",
+  "hijri.m09": "رمضان",
+  "hijri.m10": "شوال",
+  "hijri.m11": "ذو القعدة",
+  "hijri.m12": "ذو الحجة"
+}

@@ -1,0 +1,39 @@
+{
+  "prayer.Imsak": "Imsak",
+  "prayer.Fajr": "Subuh",
+  "prayer.Sunrise": "Terbit",
+  "prayer.Dhuhr": "Dzuhur",
+  "prayer.Asr": "Ashar",
+  "prayer.Maghrib": "Maghrib",
+  "prayer.Isha": "Isya",
+
+  "panel.title": "Jadwal Waktu Salat Hari Ini",
+  "panel.calcMethod": "Metode Perhitungan",
+  "panel.language": "Bahasa",
+  "panel.coords": "Atur Koordinat (Lintang / Bujur):",
+  "panel.save": "Simpan & Muat Ulang",
+  "panel.latPlaceholder": "Lintang",
+  "panel.longPlaceholder": "Bujur",
+
+  "bar.loading": "Memuat...",
+  "bar.tooltip": "Waktu Salat",
+
+  "notify.title": "Waktu Salat",
+  "notify.altTitle": "Pengingat Waktu Salat",
+  "notify.body": "Sudah masuk waktu salat {name}.",
+  "notify.prepare": "Siapkan diri untuk salat.",
+
+  "hijri.ah": "H",
+  "hijri.m01": "Muharram",
+  "hijri.m02": "Safar",
+  "hijri.m03": "Rabiul Awal",
+  "hijri.m04": "Rabiul Akhir",
+  "hijri.m05": "Jumadil Awal",
+  "hijri.m06": "Jumadil Akhir",
+  "hijri.m07": "Rajab",
+  "hijri.m08": "Syaban",
+  "hijri.m09": "Ramadan",
+  "hijri.m10": "Syawal",
+  "hijri.m11": "Zulkaidah",
+  "hijri.m12": "Zulhijah"
+}

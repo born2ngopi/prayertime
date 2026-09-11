@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "born2ngopi.prayertime",
+  "name": "Muslim Prayer Time",
+  "version": "1.0.0",
+  "author": "Chandra Agung Rizky",
+  "description": "Widget prayer time",
+  "kinds": ["bar-widget", "overlay", "service"],
+  "entryPoints": {
+    "barWidget": "Panel.qml",
+    "overlay": "Notification.qml",
+    "service": "Service.qml"
+  },
+  "barWidget": {
+    "displayName": "Prayer Time",
+    "description": "Muslim Prayer Time",
+    "allowMultiple": false,
+    "defaultSection": "right"
+  }
+}
+
