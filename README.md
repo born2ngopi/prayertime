@@ -101,6 +101,30 @@ automatically on first run):
 The file is watched — you can edit it live while the shell runs, or just use the
 panel UI. Everything survives a shell restart.
 
+### Getting your coordinates from Google Maps
+
+Open your location in Google Maps, then copy the URL from the address bar. It looks like:
+
+```
+https://www.google.com/maps/place/Tugu+Yogyakarta+Monument/@-7.7951762,110.3695865,14z/data=...
+```
+
+Find the part right after `@` — it is `lat,lng,zoom`:
+
+- **`-7.7951762`** → Latitude
+- **`110.3695865`** → Longitude
+- `14z` → zoom level (ignore it)
+
+So for Tugu Yogyakarta: `latitude: -7.7951762`, `longitude: 110.3695865`.
+
+Type those two numbers into the *Lat / Long* fields in the panel and hit
+**Save & Refresh** (or just edit `~/.local/state/omarchy/prayertime.json`).
+
+> Tip: URLs ending in `/data=!4m6...!3d<lat>!4d<lng>` also carry the exact pin
+> coordinates (the `!3d...!4d...` pair) — that's Google's precise place marker,
+> while the `@lat,lng` coordinates are the map-view center and are fine for
+> prayer-time calculations either way.
+
 ### Language
 
 Available languages: `en`, `id`, `ar`. If no language is set, it defaults to the
