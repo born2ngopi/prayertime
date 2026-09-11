@@ -165,6 +165,7 @@ language, with English always used as a fallback for missing keys.
 
 ```
 born2ngopi.prayertime/
+├── LICENSE           # GPL-3.0
 ├── manifest.json     # registry: bar-widget + overlay + service entry points
 ├── Service.qml       # API fetch, next-prayer logic, notifications, i18n, persistence
 ├── Panel.qml         # bar widget (qs.Ui.BarWidget) — shows "Next: HH:MM"
@@ -198,3 +199,7 @@ journalctl --user -u omarchy-shell -f
 
 - Prayer times data: [Aladhan API](https://aladhan.com/prayer-times-api)
 - Follows the Omarchy shell/panel/overlay contracts (`qs.Ui.*` components).
+
+## License
+
+[GPL-3.0](LICENSE) — © 2026 Chandra Agung Rizky.
