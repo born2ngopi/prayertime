@@ -5,6 +5,16 @@ Shows the **next prayer on the bar** (`Maghrib: 17:51`), opens a centered panel 
 full daily schedule + Hijri date, lets you pick a calculation method and location, and
 sends a desktop notification when prayer time arrives.
 
+## Screenshots
+
+![Menu](docs/menu.png)
+
+*Panel popup — today's schedule, Hijri date, calculation method & language dropdowns, coordinates.*
+
+![Bar](docs/bar.png)
+
+*Bar widget — shows the next prayer and its time.*
+
 ## Features
 
 - **Bar widget** — always shows the *next* prayer and its time (skips Imsak/Sunrise).
@@ -23,19 +33,44 @@ sends a desktop notification when prayer time arrives.
 
 ## Install
 
+Install directly from GitHub:
+
 ```bash
-# enable the plugin (registry id may differ from the folder name)
-omarchy plugin enable born2ngopi.prayertime --section right
-
-# optional: move it to the center section, next to the clock
-omarchy bar move born2ngopi.prayertime --section center
-
-# restart the shell to load it
+omarchy plugin add https://github.com/born2ngopi/prayertime.git --enable
 omarchy restart shell
 ```
 
+This clones the plugin to `~/.config/omarchy/plugins/` and enables it.
+The plugin registers under the id **`born2ngopi.prayertime`** (shown in `omarchy plugin list`).
+
 > Requires a **network connection** — times are fetched from the
 > [Aladhan Prayer Times API](https://aladhan.com/prayer-times-api).
+
+### Enable / Disable
+
+```bash
+# enable and place in a specific section of the bar
+omarchy plugin enable born2ngopi.prayertime --section right
+omarchy plugin enable born2ngopi.prayertime --section center
+
+# move an already-enabled plugin to a different section
+omarchy bar move born2ngopi.prayertime --section center
+
+# disable without removing files
+omarchy plugin disable born2ngopi.prayertime
+
+omarchy restart shell
+```
+
+### Uninstall
+
+```bash
+omarchy plugin remove born2ngopi.prayertime --yes
+omarchy restart shell
+
+# remove persisted settings (optional)
+rm ~/.local/state/omarchy/prayertime.json
+```
 
 ## Usage
 
@@ -105,12 +140,15 @@ language, with English always used as a fallback for missing keys.
 ## File structure
 
 ```
-born2ngopi.playertime/
+born2ngopi.prayertime/
 ├── manifest.json     # registry: bar-widget + overlay + service entry points
 ├── Service.qml       # API fetch, next-prayer logic, notifications, i18n, persistence
 ├── Panel.qml         # bar widget (qs.Ui.BarWidget) — shows "Next: HH:MM"
 ├── Popup.qml         # centered panel: schedule, method + language dropdowns, coordinates
 ├── Notification.qml  # overlay shown on summon (qs.Ui overlay contract)
+├── docs/
+│   ├── menu.png      # panel popup screenshot
+│   └── bar.png       # bar widget screenshot
 └── i18n/
     ├── en.json       # English translations (fallback)
     ├── id.json       # Bahasa Indonesia translations
