@@ -14,8 +14,6 @@ Panel {
   property var hostWidget: null
 
   property bool settingsOpen: false
-  property bool quranOpen: false
-  property int selectedSurahNumber: 1
 
   readonly property var service: root.bar && root.bar.shell
     ? root.bar.shell.serviceFor("born2ngopi.prayertime") : null
@@ -128,17 +126,14 @@ Panel {
           Button {
             id: settingsToggle
             anchors.right: parent.right
-            iconText: root.quranOpen ? "\uf053" : (root.settingsOpen ? "\uf053" : "\uf013")
+            iconText: root.settingsOpen ? "\uf053" : "\uf013"
             iconSize: Style.font.title
             fontFamily: root.bar ? root.bar.fontFamily : Style.font.family
             foreground: root.bar ? root.bar.foreground : Color.foreground
             tooltipText: root.service
-              ? root.service.tr(root.quranOpen || root.settingsOpen ? "panel.back" : "panel.settings")
-              : ((root.quranOpen || root.settingsOpen) ? "Back" : "Settings")
-            onClicked: {
-              if (root.quranOpen) root.quranOpen = false
-              else root.settingsOpen = !root.settingsOpen
-            }
+              ? root.service.tr(root.settingsOpen ? "panel.back" : "panel.settings")
+              : (root.settingsOpen ? "Back" : "Settings")
+            onClicked: root.settingsOpen = !root.settingsOpen
           }
         }
 
@@ -254,10 +249,6 @@ Panel {
               }
             }
           }
-        }
-
-        PanelSeparator {
-          foreground: root.bar ? root.bar.foreground : Color.foreground
         }
 
         Column {
