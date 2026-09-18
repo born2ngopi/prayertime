@@ -8,6 +8,9 @@
   "prayer.Isha": "العشاء",
 
   "panel.title": "أوقات الصلاة اليوم",
+  "panel.settings": "الإعدادات",
+  "panel.back": "رجوع",
+  "panel.countdownTo": "العد التنازلي لصلاة {name}",
   "panel.calcMethod": "طريقة الحساب",
   "panel.language": "اللغة",
   "panel.coords": "ضبط الإحداثيات (خط العرض / خط الطول):",

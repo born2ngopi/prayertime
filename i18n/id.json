@@ -8,6 +8,9 @@
   "prayer.Isha": "Isya",
 
   "panel.title": "Jadwal Waktu Salat Hari Ini",
+  "panel.settings": "Pengaturan",
+  "panel.back": "Kembali",
+  "panel.countdownTo": "Hitung mundur menuju {name}",
   "panel.calcMethod": "Metode Perhitungan",
   "panel.language": "Bahasa",
   "panel.coords": "Atur Koordinat (Lintang / Bujur):",

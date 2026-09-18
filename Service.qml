@@ -59,6 +59,7 @@ Item {
   property string hijriDateText: ""
   property var prayerList: []
   property string lastNotifiedPrayer: ""
+  property string lastAdzanPrayer: ""
   property bool notificationSent: false
 
   // --- INTERNATIONALIZATION ---
@@ -81,6 +82,86 @@ Item {
     try { s = decodeURIComponent(s) } catch (e) {}
     return s
   }
+
+  // --- AL-QURAN (surahs index, cached) ---
+  readonly property string quranCacheFile: root.stateDir + "quran-surahs.json"
+  property var surahs: []
+  property bool surahsLoading: false
+
+  FileView {
+    id: quranCache
+    path: root.quranCacheFile
+    watchChanges: true
+    atomicWrites: true
+    printErrors: false
+    // Warm cache wins: it costs no network and keeps the list usable offline.
+    onLoaded: root.loadSurahsCache(text())
+    onLoadedChanged: {
+      if (!root.hasText(quranCache.text())) root.fetchSurahs()
+    }
+    onFileChanged: root.loadSurahsCache(text())
+  }
+
+  function tr(name) { return i18n.fileValue(name) }
+
+  function displaySurahName(s) {
+    if (!s) return ""
+    var number = s.number || s.number_arabic || ""
+    var fallback = (s.name_english || "") + " (" + number + ")"
+    if (root.language === "ar") return (s.name_arabic || s.name_complex || fallback)
+    if (root.language === "id") return (s.name_complex || s.name_english || fallback)
+    return (s.name_english || s.name_complex || stringify3(s.name_arabic) || fallback)
+  }
+
+  function hasText(raw) {
+    return raw && String(raw).trim().length > 0
+  }
+
+  function loadSurahsCache(raw) {
+    if (!root.hasText(raw)) { root.fetchSurahs(); return }
+    try {
+      var data = JSON.parse(raw)
+      if (data && data.surahs && data.surahs.length > 0) {
+        root.surahs = data.surahs
+        root.surahsLoading = false
+        console.log("[PrayerTime] quran cache loaded:", data.surahs.length, "surahs")
+      } else {
+        root.fetchSurahs()
+      }
+    } catch (e) {
+      console.warn("[PrayerTime] failed to parse quran cache", e)
+      root.fetchSurahs()
+    }
+  }
+
+  function fetchSurahs() {
+    if (root.surahsLoading) return
+    root.surahsLoading = true
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "https://ummahapi.com/api/quran/surahs", true);
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+        var parsed = {}
+        try { parsed = JSON.parse(xhr.responseText) } catch (e) { console.warn("[PrayerTime] quran api bad json", e) }
+        if (parsed && parsed.data && parsed.data.surahs) {
+          root.surahs = parsed.data.surahs
+          root.surahsLoading = false
+          root.saveSurahsCache(JSON.stringify({ total: parsed.data.surahs.length, surahs: parsed.data.surahs }, null, 2) + "\n")
+          console.log("[PrayerTime] quran surahs fetched:", parsed.data.surahs.length)
+        } else {
+          root.surahsLoading = false
+          console.warn("[PrayerTime] quran api missing data.surahs")
+        }
+      }
+    };
+    xhr.send();
+  }
+
+  function saveSurahsCache(json) {
+    quranCache.setText(json)
+  }
+
+  function stringify3(v) { return String(v || "") }
 
   function i18nFilePath(lang) {
     return root.urlToPath(Qt.resolvedUrl("./i18n/" + lang + ".json"))
@@ -187,6 +268,7 @@ Item {
           calculateNextPrayer();
           root.notificationSent = false;
           root.lastNotifiedPrayer = "";
+          root.lastAdzanPrayer = "";
           console.log("[PrayerTime] loaded. Next:", root.nextPrayerName, root.nextPrayerTime);
         }
       }
@@ -216,6 +298,27 @@ Item {
     }
   }
 
+  function playAdzan(name) {
+    if (root.lastAdzanPrayer === name) return;
+    var file = root.urlToPath(Qt.resolvedUrl("./docs/adzan.mp3"));
+    Quickshell.execDetached([
+      "mpv", "--no-video", "--no-terminal", "--really-quiet", "--length=20", file
+    ]);
+    root.lastAdzanPrayer = name;
+    console.log("[PrayerTime] adzan played for", name, file);
+  }
+
+  function secondsUntilNextPrayer() {
+    if (root.nextPrayerTime === "" || root.nextPrayerTime === "--:--") return -1;
+    var parts = root.nextPrayerTime.split(":");
+    if (parts.length < 2) return -1;
+    var target = new Date();
+    target.setHours(parseInt(parts[0], 10), parseInt(parts[1], 10), 0, 0);
+    var diff = Math.round((target.getTime() - Date.now()) / 1000);
+    if (diff < 0) diff += 86400;
+    return diff;
+  }
+
   function checkAndNotify() {
     if (prayerList.length === 0) return;
     var now = new Date();
@@ -226,13 +329,15 @@ Item {
       var timeParts = prayerList[i].time.split(":");
       var prayerMinutes = parseInt(timeParts[0]) * 60 + parseInt(timeParts[1]);
       var diff = prayerMinutes - currentMinutes;
+      if (diff === 0 && root.lastAdzanPrayer !== name) root.playAdzan(name);
       if (diff >= 0 && diff <= 5 && root.lastNotifiedPrayer !== name) {
         root.lastNotifiedPrayer = name;
         root.notificationSent = true;
         Quickshell.execDetached([
           "omarchy-notification-send",
           "-g", "\uf06d",
-          "-u", "critical",
+          "-u", "normal",
+          "-t", "8000",
           "Prayer Time",
           "It is time for " + name + " prayer."
         ]);

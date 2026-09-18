@@ -8,6 +8,9 @@
   "prayer.Isha": "Isha",
 
   "panel.title": "Today's Prayer Times",
+  "panel.settings": "Settings",
+  "panel.back": "Back",
+  "panel.countdownTo": "Countdown to {name}",
   "panel.calcMethod": "Calculation Method",
   "panel.language": "Language",
   "panel.coords": "Set Coordinates (Lat / Long):",
